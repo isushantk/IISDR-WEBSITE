@@ -348,24 +348,34 @@
             color: #256029;
         }
 
-        /* Google button */
-        .btn-google {
-            width: 100%;
-            padding: 11px 14px;
-            background-color: #003d99;
-            color: #ffffff;
-            border: 1.5px solid #002d77;
-            border-radius: 5px;
-            font-size: 0.95rem;
-            font-weight: 600;
+        /* Google button wrapper */
+        #google-btn-wrapper {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 8px;
             margin-bottom: 4px;
         }
 
-        .btn-google:hover { background-color: #002d77; }
+        /* Setup notice */
+        .setup-notice {
+            background: #fff8e1;
+            border: 1.5px solid #ffe082;
+            border-radius: 6px;
+            padding: 14px 16px;
+            font-size: 0.82rem;
+            color: #5d4037;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .setup-notice strong { color: #003d99; }
+        .setup-notice code {
+            background: #f5f5f5;
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+        }
+        .setup-notice ol { margin: 8px 0 0 18px; }
+        .setup-notice ol li { margin-bottom: 4px; }
 
         /* Divider */
         .auth-divider {
@@ -651,16 +661,35 @@
                 <!-- Status message -->
                 <div id="auth-message" class="auth-message" role="status" aria-live="polite"></div>
 
-                <!-- Google Sign-In -->
-                <button id="google-signin" class="btn-google" type="button">
-                    <svg width="20" height="20" viewBox="0 0 48 48" style="flex-shrink:0">
-                        <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.6 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 20-8.9 20-20 0-1.2-.1-2.3-.4-3.5z"/>
-                        <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16.1 19 13 24 13c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/>
-                        <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.3 35.3 26.8 36 24 36c-5.3 0-9.7-3.4-11.3-8H6.2C9.6 35.6 16.3 44 24 44z"/>
-                        <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.3 5.6l6.2 5.2C41 35.8 44 30.4 44 24c0-1.2-.1-2.3-.4-3.5z"/>
-                    </svg>
-                    Continue with Google
-                </button>
+                <!-- Setup notice (hidden once Client ID is set) -->
+                <div id="setup-notice" class="setup-notice">
+                    <strong>&#9888; One-time setup required:</strong><br>
+                    To activate Google Sign-In, replace <code>YOUR_GOOGLE_CLIENT_ID</code> in this file with your real Client ID.
+                    <ol>
+                        <li>Go to <strong>console.cloud.google.com</strong></li>
+                        <li>Create a project &rarr; APIs &amp; Services &rarr; Credentials</li>
+                        <li>Create <strong>OAuth 2.0 Client ID</strong> (Web application)</li>
+                        <li>Add your site URL to <em>Authorised JavaScript origins</em></li>
+                        <li>Copy the Client ID and paste it in the <code>GOOGLE_CLIENT_ID</code> constant below</li>
+                    </ol>
+                </div>
+
+                <!-- Google Sign-In button (rendered by GSI) -->
+                <div id="google-btn-wrapper"></div>
+
+                <!-- Signed-in user profile card (hidden by default) -->
+                <div id="user-profile" style="display:none; text-align:center; padding:16px 0;">
+                    <img id="user-avatar" src="" alt="" width="64" height="64"
+                         style="border-radius:50%; border:3px solid #003d99; margin-bottom:10px;">
+                    <div id="user-name" style="font-weight:700; font-size:1.05rem; color:#003d99;"></div>
+                    <div id="user-email" style="font-size:0.85rem; color:#777; margin-bottom:14px;"></div>
+                    <button id="auth-signout"
+                            style="background:#fff; color:#d32f2f; border:1.5px solid #d32f2f;
+                                   padding:8px 22px; border-radius:4px; font-size:0.88rem;
+                                   font-weight:600; cursor:pointer;">
+                        Sign Out
+                    </button>
+                </div>
 
                 <!-- Auth status bar -->
                 <div class="auth-status">
@@ -679,95 +708,124 @@
         All rights reserved. &mdash; <a href="index.html">Back to IISDR Homepage</a>
     </footer>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
         // ============================================
-        // FIREBASE CONFIG — Replace with real values
+        // STEP: Paste your Google OAuth Client ID here
+        // Get it from: console.cloud.google.com
+        //   → APIs & Services → Credentials → Create OAuth 2.0 Client ID
         // ============================================
-        const firebaseConfig = {
-            apiKey: "REPLACE_WITH_API_KEY",
-            authDomain: "REPLACE_WITH_AUTH_DOMAIN",
-            projectId: "REPLACE_WITH_PROJECT_ID",
-            appId: "REPLACE_WITH_APP_ID",
-            messagingSenderId: "REPLACE_WITH_SENDER_ID",
-            storageBucket: "REPLACE_WITH_STORAGE_BUCKET"
-        };
+        const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID';
 
-        function isFirebaseConfigured() {
-            return Object.values(firebaseConfig).every(v => v && !String(v).includes("REPLACE_WITH"));
-        }
+        const isConfigured = GOOGLE_CLIENT_ID !== 'YOUR_GOOGLE_CLIENT_ID';
 
-        function setAuthMessage(message, type = "") {
+        // ── Helpers ─────────────────────────────────
+        function setAuthMessage(message, type = '') {
             const el = document.getElementById('auth-message');
             if (!el) return;
-            if (!message) {
-                el.style.display = "none";
-                el.textContent = "";
-                el.className = "auth-message";
-                return;
-            }
-            el.style.display = "block";
+            if (!message) { el.style.display = 'none'; el.textContent = ''; el.className = 'auth-message'; return; }
+            el.style.display = 'block';
             el.textContent = message;
-            el.className = `auth-message${type ? ` ${type}` : ""}`;
+            el.className = 'auth-message' + (type ? ' ' + type : '');
         }
 
-        function setAuthDisabled(disabled) {
-            document.querySelectorAll('.auth-card button, .auth-card input')
-                .forEach(el => el.disabled = disabled);
+        // Decode Google JWT credential
+        function parseJwt(token) {
+            try {
+                return JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+            } catch(e) { return {}; }
         }
 
-        function initCertificationAuth() {
-            if (!window.firebase || !firebase.apps) {
-                setAuthMessage("Firebase SDK failed to load.", "error");
-                setAuthDisabled(true);
+        function showUser(payload) {
+            const profile  = document.getElementById('user-profile');
+            const btnWrap  = document.getElementById('google-btn-wrapper');
+            const notice   = document.getElementById('setup-notice');
+            const statusEl = document.getElementById('auth-user');
+
+            document.getElementById('user-avatar').src = payload.picture || '';
+            document.getElementById('user-name').textContent  = payload.name  || 'Google User';
+            document.getElementById('user-email').textContent = payload.email || '';
+            statusEl.textContent = payload.name || payload.email || 'Google User';
+
+            if (profile)  profile.style.display  = 'block';
+            if (btnWrap)  btnWrap.style.display   = 'none';
+            if (notice)   notice.style.display    = 'none';
+            setAuthMessage('Signed in successfully with Google.', 'success');
+
+            // Persist session
+            sessionStorage.setItem('gsi_user', JSON.stringify(payload));
+        }
+
+        function signOut() {
+            sessionStorage.removeItem('gsi_user');
+            const profile  = document.getElementById('user-profile');
+            const btnWrap  = document.getElementById('google-btn-wrapper');
+            const statusEl = document.getElementById('auth-user');
+            if (profile) profile.style.display = 'none';
+            if (btnWrap) btnWrap.style.display  = 'flex';
+            statusEl.textContent = 'Not signed in';
+            setAuthMessage('Signed out.', 'success');
+            if (window.google && google.accounts && google.accounts.id) {
+                google.accounts.id.disableAutoSelect();
+            }
+        }
+
+        // ── Main init ───────────────────────────────
+        window.addEventListener('load', function () {
+            // Restore session if exists
+            const saved = sessionStorage.getItem('gsi_user');
+            if (saved) { showUser(JSON.parse(saved)); }
+
+            // Sign out button
+            const signoutBtn = document.getElementById('auth-signout');
+            if (signoutBtn) signoutBtn.addEventListener('click', signOut);
+
+            if (!isConfigured) {
+                // Show setup notice, keep button wrapper visible but don't render GSI button
                 return;
             }
 
-            if (!isFirebaseConfigured()) {
-                setAuthMessage("Authentication is not yet configured. Please replace the Firebase config values.", "error");
-                setAuthDisabled(true);
-                return;
-            }
+            // Hide setup notice
+            const notice = document.getElementById('setup-notice');
+            if (notice) notice.style.display = 'none';
 
-            if (!firebase.apps.length) {
-                firebase.initializeApp(firebaseConfig);
-            }
-
-            const auth = firebase.auth();
-
-            // Google Sign-In
-            document.getElementById('google-signin').addEventListener('click', () => {
-                const provider = new firebase.auth.GoogleAuthProvider();
-                setAuthMessage("Opening Google sign-in…", "");
-                auth.signInWithPopup(provider)
-                    .then(() => setAuthMessage("Signed in with Google successfully.", "success"))
-                    .catch(err => setAuthMessage(err.message, "error"));
-            });
-
-            // Sign Out
-            document.getElementById('auth-signout').addEventListener('click', () => {
-                auth.signOut()
-                    .then(() => setAuthMessage("Signed out.", "success"))
-                    .catch(err => setAuthMessage(err.message, "error"));
-            });
-
-            // Auth state observer
-            auth.onAuthStateChanged(user => {
-                const userLabel = document.getElementById('auth-user');
-                const signoutBtn = document.getElementById('auth-signout');
-                if (user) {
-                    userLabel.textContent = user.displayName || user.email || "Google User";
-                    signoutBtn.disabled = false;
-                } else {
-                    userLabel.textContent = "Not signed in";
-                    signoutBtn.disabled = true;
+            // Wait for GSI to load then initialize
+            function initGSI() {
+                if (!window.google || !google.accounts || !google.accounts.id) {
+                    setTimeout(initGSI, 200);
+                    return;
                 }
-            });
-        }
 
-        document.addEventListener('DOMContentLoaded', initCertificationAuth);
+                google.accounts.id.initialize({
+                    client_id: GOOGLE_CLIENT_ID,
+                    callback: function(response) {
+                        const payload = parseJwt(response.credential);
+                        showUser(payload);
+                    },
+                    auto_select: false,
+                    cancel_on_tap_outside: true
+                });
+
+                // Render the official Google button
+                google.accounts.id.renderButton(
+                    document.getElementById('google-btn-wrapper'),
+                    {
+                        theme: 'outline',
+                        size: 'large',
+                        width: 360,
+                        text: 'signin_with',
+                        shape: 'rectangular',
+                        logo_alignment: 'center'
+                    }
+                );
+
+                // Also show One Tap prompt
+                google.accounts.id.prompt();
+            }
+
+            initGSI();
+        });
     </script>
 </body>
 </html>
