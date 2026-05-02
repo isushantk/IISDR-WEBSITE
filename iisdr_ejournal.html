@@ -82,6 +82,33 @@
             flex-shrink: 0;
         }
 
+        .header-text {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .header-text p {
+            margin: 0;
+            line-height: 1.25;
+            color: #c41e3a;
+            font-weight: 600;
+        }
+
+        .header-text .header-text-hi {
+            font-size: 1.3rem;
+        }
+
+        .header-text .header-text-kn {
+            font-size: 1.2rem;
+        }
+
+        .header-text .header-text-en {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+        }
+
         .header-right {
             display: flex;
             gap: 15px;
@@ -675,6 +702,11 @@
     <header class="main-header">
         <div class="header-left">
             <img src="iisdr-logo.png" alt="IISDR Logo" class="logo-placeholder">
+            <div class="header-text">
+                <p class="header-text-hi">भारतीय कौशल विकास एवं अनुसंधान संस्थान</p>
+                <p class="header-text-kn">ಇಂಡಿಯನ್ ಇನ್ಸ್ಟಿಟ್ಯೂಟ್ ಆಫ್ ಸ್ಕಿಲ್ ಡೆವಲಪ್ಮೆಂಟ್ ಅಂಡ್ ರಿಸರ್ಚ್</p>
+                <p class="header-text-en">INDIAN INSTITUTE OF SKILL DEVELOPMENT AND RESEARCH</p>
+            </div>
         </div>
     </header>
 
