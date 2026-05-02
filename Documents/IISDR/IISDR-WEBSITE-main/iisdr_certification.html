@@ -621,27 +621,23 @@
             <!-- LEFT: INFO PANEL -->
             <div class="cert-info-panel">
                 <span class="cert-info-badge">Secure Access</span>
-                <h1>Certification Program <span>Authentication</span></h1>
+                <h1>Certification Program <span>Login</span></h1>
                 <p>
-                    Access IISDR certification programs using secure sign-in. Applicants may use
-                    Google authentication, phone-based OTP verification, or email and password.
+                    Access IISDR certification programs using your Google account.
+                    Sign in securely with one click — no separate password needed.
                 </p>
                 <ul class="cert-features">
                     <li>
                         <div class="feat-icon">G</div>
-                        <span>Google Sign-In for quick, one-click access</span>
-                    </li>
-                    <li>
-                        <div class="feat-icon">📱</div>
-                        <span>Phone number OTP verification (India &amp; international numbers)</span>
-                    </li>
-                    <li>
-                        <div class="feat-icon">✉</div>
-                        <span>Email sign-up and sign-in with password</span>
+                        <span>Sign in instantly with your Google account</span>
                     </li>
                     <li>
                         <div class="feat-icon">🔒</div>
-                        <span>All data is secured and encrypted via Firebase Auth</span>
+                        <span>Secured and encrypted via Google OAuth 2.0</span>
+                    </li>
+                    <li>
+                        <div class="feat-icon">✅</div>
+                        <span>No separate password required — use your existing Google account</span>
                     </li>
                 </ul>
                 <a href="index.html" class="cert-back-link">← Back to Homepage</a>
@@ -649,65 +645,22 @@
 
             <!-- RIGHT: AUTH CARD -->
             <div class="auth-card" role="main">
-                <div class="auth-card-title">Sign In / Create Account</div>
-                <div class="auth-card-subtitle">Choose any method to access your certification portal</div>
+                <div class="auth-card-title">Sign In to Certification Portal</div>
+                <div class="auth-card-subtitle">Use your Google account to access IISDR certification programs</div>
 
                 <!-- Status message -->
                 <div id="auth-message" class="auth-message" role="status" aria-live="polite"></div>
 
-                <!-- Google -->
+                <!-- Google Sign-In -->
                 <button id="google-signin" class="btn-google" type="button">
-                    <span style="font-size:1.1rem;">G</span> Continue with Google
+                    <svg width="20" height="20" viewBox="0 0 48 48" style="flex-shrink:0">
+                        <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.6 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34.1 6.5 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20c11 0 20-8.9 20-20 0-1.2-.1-2.3-.4-3.5z"/>
+                        <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16.1 19 13 24 13c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34.1 6.5 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/>
+                        <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.3 35.3 26.8 36 24 36c-5.3 0-9.7-3.4-11.3-8H6.2C9.6 35.6 16.3 44 24 44z"/>
+                        <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.3 5.6l6.2 5.2C41 35.8 44 30.4 44 24c0-1.2-.1-2.3-.4-3.5z"/>
+                    </svg>
+                    Continue with Google
                 </button>
-
-                <!-- PHONE OTP -->
-                <div class="auth-divider">OR</div>
-                <div class="auth-section-label">📱 Phone Number Verification</div>
-
-                <div class="phone-row">
-                    <div>
-                        <label for="phone-number">Phone number (with country code)</label>
-                        <input id="phone-number" class="auth-input" type="tel"
-                               placeholder="+91 9876543210" autocomplete="tel">
-                    </div>
-                    <div style="padding-bottom:0;">
-                        <button id="phone-send-otp" class="auth-btn-inline" type="button"
-                                style="margin-top:22px;">Send OTP</button>
-                    </div>
-                </div>
-
-                <div id="recaptcha-container"></div>
-
-                <div class="auth-row">
-                    <label for="phone-otp">Enter OTP</label>
-                    <div class="phone-row">
-                        <input id="phone-otp" class="auth-input" type="text"
-                               placeholder="Enter 6-digit OTP" inputmode="numeric"
-                               autocomplete="one-time-code" maxlength="6">
-                        <button id="phone-verify-otp" class="auth-btn-inline" type="button">Verify OTP</button>
-                    </div>
-                </div>
-
-                <!-- EMAIL / PASSWORD -->
-                <div class="auth-divider">OR</div>
-                <div class="auth-section-label">✉ Email &amp; Password</div>
-
-                <div class="auth-row">
-                    <label for="email-id">Email address</label>
-                    <input id="email-id" class="auth-input" type="email"
-                           placeholder="name@example.com" autocomplete="email">
-                </div>
-
-                <div class="auth-row">
-                    <label for="email-password">Password</label>
-                    <input id="email-password" class="auth-input" type="password"
-                           placeholder="Enter password" autocomplete="current-password">
-                </div>
-
-                <div class="auth-actions">
-                    <button id="email-signup" class="auth-btn secondary" type="button">Create Account</button>
-                    <button id="email-signin" class="auth-btn" type="button">Sign In</button>
-                </div>
 
                 <!-- Auth status bar -->
                 <div class="auth-status">
@@ -783,80 +736,13 @@
             }
 
             const auth = firebase.auth();
-            let phoneConfirmation = null;
-
-            const recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-                size: 'normal'
-            });
-
-            recaptchaVerifier.render().catch(err => {
-                setAuthMessage(`Unable to load reCAPTCHA: ${err.message}`, "error");
-            });
 
             // Google Sign-In
             document.getElementById('google-signin').addEventListener('click', () => {
                 const provider = new firebase.auth.GoogleAuthProvider();
                 setAuthMessage("Opening Google sign-in…", "");
                 auth.signInWithPopup(provider)
-                    .then(() => setAuthMessage("Signed in with Google.", "success"))
-                    .catch(err => setAuthMessage(err.message, "error"));
-            });
-
-            // Phone – Send OTP
-            document.getElementById('phone-send-otp').addEventListener('click', () => {
-                const phone = document.getElementById('phone-number').value.trim();
-                if (!phone) {
-                    setAuthMessage("Please enter a phone number with country code (e.g. +91 9876543210).", "error");
-                    return;
-                }
-                setAuthMessage("Sending OTP…", "");
-                auth.signInWithPhoneNumber(phone, recaptchaVerifier)
-                    .then(result => {
-                        phoneConfirmation = result;
-                        setAuthMessage("OTP sent! Please check your phone.", "success");
-                    })
-                    .catch(err => setAuthMessage(err.message, "error"));
-            });
-
-            // Phone – Verify OTP
-            document.getElementById('phone-verify-otp').addEventListener('click', () => {
-                const otp = document.getElementById('phone-otp').value.trim();
-                if (!phoneConfirmation) {
-                    setAuthMessage("Please request an OTP first.", "error");
-                    return;
-                }
-                if (!otp) {
-                    setAuthMessage("Enter the OTP received on your phone.", "error");
-                    return;
-                }
-                phoneConfirmation.confirm(otp)
-                    .then(() => setAuthMessage("Phone number verified. Signed in successfully.", "success"))
-                    .catch(err => setAuthMessage(err.message, "error"));
-            });
-
-            // Email – Create Account
-            document.getElementById('email-signup').addEventListener('click', () => {
-                const email = document.getElementById('email-id').value.trim();
-                const password = document.getElementById('email-password').value.trim();
-                if (!email || !password) {
-                    setAuthMessage("Enter both email and password to create an account.", "error");
-                    return;
-                }
-                auth.createUserWithEmailAndPassword(email, password)
-                    .then(() => setAuthMessage("Account created and signed in successfully.", "success"))
-                    .catch(err => setAuthMessage(err.message, "error"));
-            });
-
-            // Email – Sign In
-            document.getElementById('email-signin').addEventListener('click', () => {
-                const email = document.getElementById('email-id').value.trim();
-                const password = document.getElementById('email-password').value.trim();
-                if (!email || !password) {
-                    setAuthMessage("Enter both email and password to sign in.", "error");
-                    return;
-                }
-                auth.signInWithEmailAndPassword(email, password)
-                    .then(() => setAuthMessage("Signed in successfully.", "success"))
+                    .then(() => setAuthMessage("Signed in with Google successfully.", "success"))
                     .catch(err => setAuthMessage(err.message, "error"));
             });
 
@@ -872,7 +758,7 @@
                 const userLabel = document.getElementById('auth-user');
                 const signoutBtn = document.getElementById('auth-signout');
                 if (user) {
-                    userLabel.textContent = user.email || user.phoneNumber || "Authenticated user";
+                    userLabel.textContent = user.displayName || user.email || "Google User";
                     signoutBtn.disabled = false;
                 } else {
                     userLabel.textContent = "Not signed in";
