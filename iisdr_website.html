@@ -626,6 +626,158 @@
             color: #777777;
         }
 
+        /* CERTIFICATION AUTH SECTION */
+        .cert-auth-section {
+            background-color: #f8f9fb;
+            border-top: 2px solid #003d99;
+            padding: 30px 20px;
+            margin-top: 20px;
+        }
+
+        .cert-auth-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .cert-auth-title {
+            font-size: 1.3rem;
+            color: #003d99;
+            font-weight: bold;
+            border-bottom: 2px solid #ff9933;
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        .cert-auth-desc {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #555555;
+        }
+
+        .cert-auth-list {
+            margin-top: 12px;
+            padding-left: 20px;
+            color: #555555;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .auth-card {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+        }
+
+        .auth-message {
+            display: none;
+            padding: 8px 10px;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            background-color: #fff4e5;
+            border: 1px solid #ffcc80;
+            color: #7a4c00;
+        }
+
+        .auth-message.error {
+            background-color: #fdecea;
+            border-color: #f5c6cb;
+            color: #a42828;
+        }
+
+        .auth-message.success {
+            background-color: #e7f4ea;
+            border-color: #a9d8b0;
+            color: #256029;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 10px 12px;
+            background-color: #003d99;
+            color: #ffffff;
+            border: 1px solid #002d77;
+            border-radius: 3px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .auth-btn.secondary {
+            background-color: #ffffff;
+            color: #003d99;
+            border: 1px solid #003d99;
+        }
+
+        .auth-btn:disabled {
+            background-color: #e8e8e8;
+            color: #999999;
+            border-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 16px 0;
+            color: #777777;
+            font-size: 0.85rem;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+
+        .auth-row {
+            display: grid;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .auth-row label {
+            font-size: 0.85rem;
+            color: #333333;
+            font-weight: 600;
+        }
+
+        .auth-input {
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 3px;
+            font-size: 0.95rem;
+        }
+
+        .auth-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .auth-status {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: #555555;
+        }
+
+        .auth-status button {
+            background: none;
+            border: none;
+            color: #003d99;
+            text-decoration: underline;
+            padding: 0;
+            font-size: 0.85rem;
+        }
+
         /* RIGHT COLUMN - UPDATES & ACTIVITIES */
         .updates-section {
             padding: 0;
@@ -1127,6 +1279,10 @@
                 grid-template-columns: 1fr;
             }
 
+            .cert-auth-container {
+                grid-template-columns: 1fr;
+            }
+
             .footer-content {
                 grid-template-columns: 1fr 1fr;
                 gap: 20px;
@@ -1222,6 +1378,10 @@
             .utility-bar-right {
                 width: 100%;
                 justify-content: flex-start;
+            }
+
+            .auth-actions {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1504,6 +1664,67 @@
     </main>
 
     <!-- ============================================
+         CERTIFICATION PROGRAM AUTHENTICATION
+         ============================================ -->
+    <section id="certification" class="cert-auth-section" aria-label="Certification Program Authentication">
+        <div class="cert-auth-container">
+            <div>
+                <h2 class="cert-auth-title">Certification Program Authentication</h2>
+                <p class="cert-auth-desc">
+                    Access IISDR certification programs using secure sign-in. Applicants may use Google authentication,
+                    phone-based OTP verification, or email and password.
+                </p>
+                <ul class="cert-auth-list">
+                    <li>Google Sign-In for quick access.</li>
+                    <li>Phone number verification with OTP.</li>
+                    <li>Email sign-up and sign-in for applicants.</li>
+                </ul>
+            </div>
+            <div class="auth-card">
+                <div id="auth-message" class="auth-message" role="status" aria-live="polite"></div>
+                <button id="google-signin" class="auth-btn" type="button">Continue with Google</button>
+
+                <div class="auth-divider">OR</div>
+
+                <div class="auth-row">
+                    <label for="phone-number">Phone number</label>
+                    <input id="phone-number" class="auth-input" type="tel" placeholder="+91 9876543210" autocomplete="tel">
+                    <div id="recaptcha-container"></div>
+                    <button id="phone-send-otp" class="auth-btn secondary" type="button">Send OTP</button>
+                </div>
+
+                <div class="auth-row">
+                    <label for="phone-otp">Enter OTP</label>
+                    <input id="phone-otp" class="auth-input" type="text" placeholder="Enter 6-digit OTP" inputmode="numeric" autocomplete="one-time-code">
+                    <button id="phone-verify-otp" class="auth-btn secondary" type="button">Verify OTP</button>
+                </div>
+
+                <div class="auth-divider">OR</div>
+
+                <div class="auth-row">
+                    <label for="email-id">Email address</label>
+                    <input id="email-id" class="auth-input" type="email" placeholder="name@example.com" autocomplete="email">
+                </div>
+
+                <div class="auth-row">
+                    <label for="email-password">Password</label>
+                    <input id="email-password" class="auth-input" type="password" placeholder="Enter password" autocomplete="current-password">
+                </div>
+
+                <div class="auth-actions">
+                    <button id="email-signup" class="auth-btn secondary" type="button">Create Account</button>
+                    <button id="email-signin" class="auth-btn" type="button">Sign In</button>
+                </div>
+
+                <div class="auth-status">
+                    Signed in as: <span id="auth-user">Not signed in</span>
+                    <button id="auth-signout" type="button">Sign out</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
          SOCIAL MEDIA SECTION
          ============================================ -->
     <section class="social-media-section">
@@ -1658,6 +1879,8 @@
     <!-- ============================================
          JAVASCRIPT FOR INTERACTIVITY
          ============================================ -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script>
         // ============================================
         // TEXT SIZE CONTROLS
@@ -1801,7 +2024,10 @@
         }
 
         // Call on page load
-        document.addEventListener('DOMContentLoaded', restoreUserPreferences);
+        document.addEventListener('DOMContentLoaded', () => {
+            restoreUserPreferences();
+            initCertificationAuth();
+        });
 
         // ============================================
         // KEYBOARD NAVIGATION
@@ -1829,6 +2055,159 @@
             }
             localStorage.setItem('visitorCount', visitorCount);
             document.getElementById('visitor-counter').textContent = visitorCount.toLocaleString('en-IN');
+        }
+
+        // ============================================
+        // CERTIFICATION AUTHENTICATION
+        // ============================================
+        const firebaseConfig = {
+            apiKey: "REPLACE_WITH_API_KEY",
+            authDomain: "REPLACE_WITH_AUTH_DOMAIN",
+            projectId: "REPLACE_WITH_PROJECT_ID",
+            appId: "REPLACE_WITH_APP_ID",
+            messagingSenderId: "REPLACE_WITH_SENDER_ID",
+            storageBucket: "REPLACE_WITH_STORAGE_BUCKET"
+        };
+
+        function isFirebaseConfigured() {
+            return Object.values(firebaseConfig).every(value => value && !String(value).includes("REPLACE_WITH"));
+        }
+
+        function setAuthMessage(message, type = "") {
+            const messageEl = document.getElementById('auth-message');
+            if (!messageEl) return;
+            if (!message) {
+                messageEl.style.display = "none";
+                messageEl.textContent = "";
+                messageEl.className = "auth-message";
+                return;
+            }
+            messageEl.style.display = "block";
+            messageEl.textContent = message;
+            messageEl.className = `auth-message${type ? ` ${type}` : ""}`;
+        }
+
+        function setAuthDisabled(disabled) {
+            const controls = document.querySelectorAll('#certification button, #certification input');
+            controls.forEach(control => {
+                control.disabled = disabled;
+            });
+        }
+
+        function initCertificationAuth() {
+            const authSection = document.getElementById('certification');
+            if (!authSection) return;
+
+            if (!window.firebase || !firebase.apps) {
+                setAuthMessage("Firebase SDK failed to load.", "error");
+                setAuthDisabled(true);
+                return;
+            }
+
+            if (!isFirebaseConfigured()) {
+                setAuthMessage("Authentication is not configured. Replace the Firebase config values.", "error");
+                setAuthDisabled(true);
+                return;
+            }
+
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+
+            const auth = firebase.auth();
+            const googleButton = document.getElementById('google-signin');
+            const phoneSendButton = document.getElementById('phone-send-otp');
+            const phoneVerifyButton = document.getElementById('phone-verify-otp');
+            const emailSignupButton = document.getElementById('email-signup');
+            const emailSigninButton = document.getElementById('email-signin');
+            const signoutButton = document.getElementById('auth-signout');
+            const userLabel = document.getElementById('auth-user');
+
+            let phoneConfirmation = null;
+            const recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+                size: 'normal'
+            });
+
+            recaptchaVerifier.render().catch(error => {
+                setAuthMessage(`Unable to load reCAPTCHA: ${error.message}`, "error");
+            });
+
+            googleButton.addEventListener('click', () => {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                setAuthMessage("Opening Google sign-in...", "");
+                auth.signInWithPopup(provider)
+                    .then(() => setAuthMessage("Signed in with Google.", "success"))
+                    .catch(error => setAuthMessage(error.message, "error"));
+            });
+
+            phoneSendButton.addEventListener('click', () => {
+                const phoneNumber = document.getElementById('phone-number').value.trim();
+                if (!phoneNumber) {
+                    setAuthMessage("Enter a phone number with country code.", "error");
+                    return;
+                }
+                auth.signInWithPhoneNumber(phoneNumber, recaptchaVerifier)
+                    .then(confirmationResult => {
+                        phoneConfirmation = confirmationResult;
+                        setAuthMessage("OTP sent. Please check your phone.", "success");
+                    })
+                    .catch(error => setAuthMessage(error.message, "error"));
+            });
+
+            phoneVerifyButton.addEventListener('click', () => {
+                const otp = document.getElementById('phone-otp').value.trim();
+                if (!phoneConfirmation) {
+                    setAuthMessage("Please request an OTP first.", "error");
+                    return;
+                }
+                if (!otp) {
+                    setAuthMessage("Enter the OTP to continue.", "error");
+                    return;
+                }
+                phoneConfirmation.confirm(otp)
+                    .then(() => setAuthMessage("Phone verified and signed in.", "success"))
+                    .catch(error => setAuthMessage(error.message, "error"));
+            });
+
+            emailSignupButton.addEventListener('click', () => {
+                const email = document.getElementById('email-id').value.trim();
+                const password = document.getElementById('email-password').value.trim();
+                if (!email || !password) {
+                    setAuthMessage("Enter email and password to create an account.", "error");
+                    return;
+                }
+                auth.createUserWithEmailAndPassword(email, password)
+                    .then(() => setAuthMessage("Account created and signed in.", "success"))
+                    .catch(error => setAuthMessage(error.message, "error"));
+            });
+
+            emailSigninButton.addEventListener('click', () => {
+                const email = document.getElementById('email-id').value.trim();
+                const password = document.getElementById('email-password').value.trim();
+                if (!email || !password) {
+                    setAuthMessage("Enter email and password to sign in.", "error");
+                    return;
+                }
+                auth.signInWithEmailAndPassword(email, password)
+                    .then(() => setAuthMessage("Signed in successfully.", "success"))
+                    .catch(error => setAuthMessage(error.message, "error"));
+            });
+
+            signoutButton.addEventListener('click', () => {
+                auth.signOut()
+                    .then(() => setAuthMessage("Signed out.", "success"))
+                    .catch(error => setAuthMessage(error.message, "error"));
+            });
+
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    userLabel.textContent = user.email || user.phoneNumber || "Authenticated user";
+                    signoutButton.disabled = false;
+                } else {
+                    userLabel.textContent = "Not signed in";
+                    signoutButton.disabled = true;
+                }
+            });
         }
 
         // ============================================
