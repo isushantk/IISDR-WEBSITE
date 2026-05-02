@@ -716,6 +716,90 @@
             }
         }
 
+
+        /* ============================================
+           INFORMATION BULLETINS STYLING
+           ============================================ */
+        .bulletin-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #e8e8e8;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .bulletin-item:hover {
+            background-color: #f0f0f0;
+            border-color: #cccccc;
+        }
+
+        .bulletin-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background-color: #138808;
+            color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-top: 2px;
+        }
+
+        .bulletin-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .bulletin-content a {
+            color: #003d99;
+            font-weight: 500;
+            display: block;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .bulletin-content a:hover {
+            color: #ff9933;
+        }
+
+        .bulletin-date {
+            font-size: 0.8rem;
+            color: #999999;
+            margin-top: 4px;
+        }
+
+        .bulletin-download {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .bulletin-download a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background-color: #003d99;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .bulletin-download a:hover {
+            background-color: #ff9933;
+        }
         /* ============================================
            SOCIAL MEDIA SECTION
            ============================================ */
@@ -1207,7 +1291,7 @@
                     <a href="#">Utkarsh Charitable & Welfare Trust</a>
                 </div>
             </li>
-            <li><a href="iisdr_activities.html">Activities</a></li>
+            <li><a href="iisdr_information_bulletins.html">Information Bulletins</a></li>
             <li class="nav-dropdown">
                 <a href="#">E-Journal</a>
                 <div class="dropdown-menu">
@@ -1324,34 +1408,64 @@
             </div>
         </div>
 
-        <!-- RIGHT COLUMN: UPDATES & ACTIVITIES -->
+        <!-- RIGHT COLUMN: UPDATES & INFORMATION BULLETINS -->
         <div class="content-column">
             <div class="updates-section">
                 <div class="tab-header">
-                    <button class="active" onclick="switchTab(0, event)" aria-selected="true">Latest Activities</button>
+                    <button class="active" onclick="switchTab(0, event)" aria-selected="true">Information Bulletins</button>
                     <button onclick="switchTab(1, event)" aria-selected="false">E-Journal</button>
                 </div>
 
                 <div class="tab-content active">
-                    <div class="update-item">
-                        <a href="#">New Industry Partnership with TechCorp India</a>
-                        <div class="update-date">25 Apr 2026</div>
+                    <div class="bulletin-item">
+                        <div class="bulletin-icon">✓</div>
+                        <div class="bulletin-content">
+                            <a href="#">INFORMATION BULLETIN 2026-5</a>
+                            <div class="bulletin-date">25 Apr 2026</div>
+                        </div>
+                        <div class="bulletin-download">
+                            <a href="#" title="Download">⬇</a>
+                        </div>
                     </div>
-                    <div class="update-item">
-                        <a href="#">Workshop on AI & Machine Learning</a>
-                        <div class="update-date">20 Apr 2026</div>
+                    <div class="bulletin-item">
+                        <div class="bulletin-icon">✓</div>
+                        <div class="bulletin-content">
+                            <a href="#">INFORMATION BULLETIN 2026-4</a>
+                            <div class="bulletin-date">20 Apr 2026</div>
+                        </div>
+                        <div class="bulletin-download">
+                            <a href="#" title="Download">⬇</a>
+                        </div>
                     </div>
-                    <div class="update-item">
-                        <a href="#">Batch 2026 Placements Announced</a>
-                        <div class="update-date">18 Apr 2026</div>
+                    <div class="bulletin-item">
+                        <div class="bulletin-icon">✓</div>
+                        <div class="bulletin-content">
+                            <a href="#">INFORMATION BULLETIN 2026-3</a>
+                            <div class="bulletin-date">18 Apr 2026</div>
+                        </div>
+                        <div class="bulletin-download">
+                            <a href="#" title="Download">⬇</a>
+                        </div>
                     </div>
-                    <div class="update-item">
-                        <a href="#">Government Recognition Certification</a>
-                        <div class="update-date">15 Apr 2026</div>
+                    <div class="bulletin-item">
+                        <div class="bulletin-icon">✓</div>
+                        <div class="bulletin-content">
+                            <a href="#">INFORMATION BULLETIN 2026-2</a>
+                            <div class="bulletin-date">15 Apr 2026</div>
+                        </div>
+                        <div class="bulletin-download">
+                            <a href="#" title="Download">⬇</a>
+                        </div>
                     </div>
-                    <div class="update-item">
-                        <a href="#">Annual Research Symposium 2026</a>
-                        <div class="update-date">10 Apr 2026</div>
+                    <div class="bulletin-item">
+                        <div class="bulletin-icon">✓</div>
+                        <div class="bulletin-content">
+                            <a href="#">INFORMATION BULLETIN 2026-1</a>
+                            <div class="bulletin-date">10 Apr 2026</div>
+                        </div>
+                        <div class="bulletin-download">
+                            <a href="#" title="Download">⬇</a>
+                        </div>
                     </div>
                 </div>
 
