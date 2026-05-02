@@ -1667,66 +1667,7 @@
         </div>
     </main>
 
-    <!-- ============================================
-         CERTIFICATION PROGRAM AUTHENTICATION
-         ============================================ -->
-    <section id="certification" class="cert-auth-section" aria-label="Certification Program Authentication">
-        <div class="cert-auth-container">
-            <div>
-                <h2 class="cert-auth-title">Certification Program Authentication</h2>
-                <p class="cert-auth-desc">
-                    Access IISDR certification programs using secure sign-in. Applicants may use Google authentication,
-                    phone-based OTP verification, or email and password.
-                </p>
-                <ul class="cert-auth-list">
-                    <li>Google Sign-In for quick access.</li>
-                    <li>Phone number verification with OTP.</li>
-                    <li>Email sign-up and sign-in for applicants.</li>
-                </ul>
-            </div>
-            <div class="auth-card">
-                <div id="auth-message" class="auth-message" role="status" aria-live="polite"></div>
-                <button id="google-signin" class="auth-btn" type="button">Continue with Google</button>
 
-                <div class="auth-divider">OR</div>
-
-                <div class="auth-row">
-                    <label for="phone-number">Phone number</label>
-                    <input id="phone-number" class="auth-input" type="tel" placeholder="+91 9876543210" autocomplete="tel">
-                    <div id="recaptcha-container"></div>
-                    <button id="phone-send-otp" class="auth-btn secondary" type="button">Send OTP</button>
-                </div>
-
-                <div class="auth-row">
-                    <label for="phone-otp">Enter OTP</label>
-                    <input id="phone-otp" class="auth-input" type="text" placeholder="Enter 6-digit OTP" inputmode="numeric" autocomplete="one-time-code">
-                    <button id="phone-verify-otp" class="auth-btn secondary" type="button">Verify OTP</button>
-                </div>
-
-                <div class="auth-divider">OR</div>
-
-                <div class="auth-row">
-                    <label for="email-id">Email address</label>
-                    <input id="email-id" class="auth-input" type="email" placeholder="name@example.com" autocomplete="email">
-                </div>
-
-                <div class="auth-row">
-                    <label for="email-password">Password</label>
-                    <input id="email-password" class="auth-input" type="password" placeholder="Enter password" autocomplete="current-password">
-                </div>
-
-                <div class="auth-actions">
-                    <button id="email-signup" class="auth-btn secondary" type="button">Create Account</button>
-                    <button id="email-signin" class="auth-btn" type="button">Sign In</button>
-                </div>
-
-                <div class="auth-status">
-                    Signed in as: <span id="auth-user">Not signed in</span>
-                    <button id="auth-signout" type="button">Sign out</button>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- ============================================
          SOCIAL MEDIA SECTION
