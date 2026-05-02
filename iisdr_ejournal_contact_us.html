@@ -227,12 +227,12 @@
         .hero-banner {
             background: linear-gradient(135deg, #003d99 0%, #002d77 100%);
             color: #ffffff;
-            padding: 40px 20px;
+            padding: 88px 20px;
             text-align: center;
         }
 
         .hero-banner h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: bold;
             margin: 0;
         }
@@ -264,27 +264,27 @@
            ============================================ */
         .about-container {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
+            grid-template-columns: 1.1fr 0.95fr;
+            gap: 48px;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 60px 20px 30px;
+            align-items: start;
         }
 
         .about-content {
-            background-color: #ffffff;
-            padding: 20px;
-            border: 1px solid #cccccc;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            background-color: transparent;
+            padding: 0 10px;
+            border: none;
+            box-shadow: none;
         }
 
         .about-content h2 {
-            font-size: 1.4rem;
-            color: #003d99;
-            font-weight: bold;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #ff9933;
+            font-size: 2.1rem;
+            color: #5c7289;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
         }
 
         .about-content p {
@@ -679,6 +679,64 @@
             top: 0;
         }
 
+        .contact-panel {
+            background-color: #eaf4fd;
+            padding: 34px 34px 38px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: none;
+        }
+
+        .contact-panel h2 {
+            color: #5c7289;
+            font-size: 2.2rem;
+            line-height: 1.1;
+            margin-bottom: 14px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .contact-panel p {
+            color: #5e6066;
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        .contact-form-grid input,
+        .contact-form-grid textarea {
+            width: 100%;
+            border: 1px solid #eef0f3;
+            border-radius: 8px;
+            background-color: #ffffff;
+            color: #5e6066;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
+        }
+
+        .contact-form-grid input {
+            padding: 14px 14px;
+        }
+
+        .contact-form-grid textarea {
+            padding: 14px 14px;
+            min-height: 146px;
+            resize: vertical;
+        }
+
+        .contact-submit {
+            background-color: #667b8e;
+            color: #ffffff;
+            border: none;
+            border-radius: 999px;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 16px 20px;
+        }
+
+        .contact-submit:hover {
+            background-color: #586b7d;
+        }
+
         :focus {
             outline: 3px solid #ff9933;
             outline-offset: 2px;
@@ -696,9 +754,8 @@
             <img src="iisdr-logo.png" alt="IISDR Logo" class="logo-placeholder">
             <div class="header-text">
                 <h1>Indian Institute of Skill Development and Research</h1>
-                <p>Utkarsh Charitable and Welfare Trust (UCWT)</p>
+                <p style="margin-bottom: 8px;">Utkarsh Charitable and Welfare Trust (UCWT)</p>
             </div>
-        </div>
         </div>
     </header>
 
@@ -741,7 +798,7 @@
     <!-- ============================================
          HERO BANNER
          ============================================ -->
-    <section class="hero-banner" role="region" aria-label="About THRIVE banner">
+    <section class="hero-banner" role="region" aria-label="Contact THRIVE banner">
         <h1>Contact THRIVE</h1>
     </section>
 
@@ -759,43 +816,47 @@
         <!-- LEFT COLUMN: GET IN TOUCH -->
         <article class="about-content">
             <h2>Get in touch</h2>
-            
+
             <div style="margin-bottom: 30px;">
-                <h3 style="color: #138808; font-size: 1.1rem; margin-bottom: 5px;">Chief Editor – THRIVE</h3>
-                <h3 style="color: #666; font-size: 1rem; font-weight: normal; margin-bottom: 10px;">International Research Journal of Humanities, Social Sciences and Management Studies</h3>
-                
-                <p style="margin-bottom: 15px; color: #333; font-size: 0.95rem;">
+                <h3 style="color: #5f845d; font-size: 1.15rem; margin-bottom: 4px; line-height: 1.35;">Chief Editor – THRIVE</h3>
+                <h3 style="color: #5f845d; font-size: 1.15rem; font-weight: 700; margin-bottom: 18px; line-height: 1.35;">International Research Journal of Humanities, Social Sciences and Management Studies</h3>
+
+                <p style="margin-bottom: 14px; color: #5e6066; font-size: 1rem; line-height: 1.5;">
                     Indian Institute of Skill Development and Research (IISDR)<br>
                     First Floor, Tara Towers, Surathkal<br>
                     Mangaluru, Dakshina Kannada
                 </p>
-                
-                <p style="margin-bottom: 8px; color: #333; font-size: 0.95rem;">
+
+                <p style="margin-bottom: 10px; color: #5e6066; font-size: 1rem;">
                     <strong>PHONE:</strong> 9480822004
                 </p>
-                
-                <p style="color: #003d99; font-size: 0.95rem;">
-                    📧 <a href="mailto:ddiisdr@gmail.com" style="color: #003d99; text-decoration: none;">ddiisdr@gmail.com</a>
+
+                <p style="color: #5e6066; font-size: 1rem;">
+                    📧 <a href="mailto:ddiisdr@gmail.com" style="color: #5e6066; text-decoration: none;">ddiisdr@gmail.com</a>
                 </p>
             </div>
         </article>
 
         <!-- RIGHT COLUMN: CONTACT FORM -->
-        <aside class="sidebar" style="background-color: #f0f5fb; padding: 25px; border-radius: 5px;">
-            <h2 style="color: #4a5f7f; margin-bottom: 10px;">Contact form</h2>
-            <p style="color: #666; font-size: 0.95rem; margin-bottom: 20px;">Or, you can just send an email: <a href="mailto:ucwtmtr@gmail.com" style="color: #003d99; text-decoration: none;">ucwtmtr@gmail.com</a></p>
-            
-            <form style="display: flex; flex-direction: column; gap: 15px;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <input type="text" placeholder="Jack" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.95rem; background-color: white;" required>
-                    <input type="text" placeholder="Doe" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.95rem; background-color: white;" required>
+        <aside class="sidebar contact-panel">
+            <h2>Contact form</h2>
+            <p style="margin-bottom: 22px;">Or, you can just send an email: <a href="mailto:ucwtmlr@gmail.com" style="color: #5c7289; text-decoration: none;">ucwtmlr@gmail.com</a></p>
+
+            <form style="display: flex; flex-direction: column; gap: 22px;">
+                <div class="contact-form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+                    <input type="text" placeholder="Jack" required>
+                    <input type="text" placeholder="Doe" required>
                 </div>
-                
-                <input type="email" placeholder="Jackdoe@gmail.com" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.95rem; background-color: white;" required>
-                
-                <textarea placeholder="What can we help you?" rows="6" style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.95rem; background-color: white; font-family: Arial, sans-serif; resize: vertical;" required></textarea>
-                
-                <button type="submit" style="padding: 12px 20px; background-color: #4a5f7f; color: white; border: none; border-radius: 25px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background-color 0.3s;">Send Message</button>
+
+                <div class="contact-form-grid">
+                    <input type="email" placeholder="Jackdoe@gmail.com" required>
+                </div>
+
+                <div class="contact-form-grid">
+                    <textarea placeholder="What can we help you?" rows="6" required></textarea>
+                </div>
+
+                <button class="contact-submit" type="submit">Send Message</button>
             </form>
         </aside>
     </main>
